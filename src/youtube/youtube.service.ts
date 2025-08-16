@@ -7,6 +7,9 @@ import ytdl from '@distube/ytdl-core';
 export class YoutubeService {
   async create(createYoutubeDto: CreateYoutubeDto) {
     const videoPath = `output/video-${new Date().getTime()}.mp4`;
+    const searchVideoInfo = await ytdl.getInfo(createYoutubeDto.url);
+
+    console.log('Video title:', searchVideoInfo.videoDetails.title);
 
     await new Promise((resolve, reject) => {
       ytdl(createYoutubeDto.url, {
@@ -28,5 +31,14 @@ export class YoutubeService {
     });
 
     return stream;
+  }
+
+  async searchVideoInfo(url: string) {
+    const searchVideoInfo = await ytdl.getInfo(url);
+    return {
+      title: searchVideoInfo.videoDetails.title,
+      thumbnail: searchVideoInfo.videoDetails.thumbnails[0].url,
+      duration: searchVideoInfo.videoDetails.lengthSeconds,
+    };
   }
 }
