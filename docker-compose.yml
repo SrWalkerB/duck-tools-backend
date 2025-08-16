@@ -10,9 +10,6 @@ services:
       - "${PORT:-3000}:${PORT:-3000}"
     env_file:
       - .env
-    volumes:
-      # Volume para persistir os arquivos de output
-      - ./output:/app/output
     restart: unless-stopped
     networks:
       - duck-tools-network
