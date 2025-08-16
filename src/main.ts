@@ -16,9 +16,9 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
-  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 3000;
 
-  await app.listen(PORT);
+  await app.listen(PORT, '0.0.0.0');
 
   Logger.log(`App is running on ${PORT}`, 'Bootstrap');
 }
